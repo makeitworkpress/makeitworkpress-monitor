@@ -33,7 +33,7 @@ class Plugin {
             // 'wordfence/wordfence.php',
             // 'wp-security-audit-log/wp-security-audit-log.php',
             // 'shortpixel-image-optimiser/wp-shortpixel.php',
-            'makeitworkpress-maintenance/makeitworkpress-maintenance.php',
+            'makeitworkpress-monitor/makeitworkpress-monitor.php',
             'worker/init.php'
         ]; 
         
@@ -41,7 +41,7 @@ class Plugin {
          * Boots our updater
          */
         $this->updater = \MakeitWorkPress\WP_Updater\Boot::instance(); 
-        $this->updater->add(['type' => 'plugin', 'source' => 'https://github.com/makeitworkpress/makeitworkpress-maintenance']);
+        $this->updater->add(['type' => 'plugin', 'source' => 'https://github.com/makeitworkpress/makeitworkpress-monitor']);
 
         /**
          * Some configs
@@ -104,7 +104,9 @@ class Plugin {
                 $plugin_meta[1] = sprintf( 
                     __('Set up by %s', 'makeitworkpress'),
                     '<a href="https://makeitwork.press">' . __('Make it WorkPress', 'makeitworkpress') . '</a>'
-                );     
+                );  
+                unset($plugin_meta[2]);
+                unset($plugin_meta[3]);
             }
             return $plugin_meta;
 
@@ -168,7 +170,7 @@ class Plugin {
                 // ['w3-total-cache/w3-total-cache.php', __('W3 Total Cache', 'makeitworkpress'), __('This plugin is advised to ensure a good performance of your site.', 'makeitworkpress')],
                 // ['wp-security-audit-log/wp-security-audit-log.php', __('WP Security Auditing Log', 'makeitworkpress'), __('This plugin is advised, as it will keep a logbook of user actions. ', 'makeitworkpress')],
                 ['worker/init.php', __('ManageWP Worker', 'makeitworkpress'), __('This plugin is required to have your site managed by Make it WorkPress.', 'makeitworkpress')],
-                ['makeitworkpress-maintenance/makeitworkpress-maintenance.php', __('Make it WorkPress Maintenance', 'makeitworkpress'), __('This plugin is required to have your site managed by Make it WorkPress.', 'makeitworkpress')],
+                ['makeitworkpress-monitor/makeitworkpress-monitor.php', __('Make it WorkPress Maintenance', 'makeitworkpress'), __('This plugin is required to have your site managed by Make it WorkPress.', 'makeitworkpress')],
             ];
 
             foreach( $notified as $key => $plugin ) {
@@ -221,7 +223,7 @@ class Plugin {
         }
 
         if( array_key_exists('deactivate', $actions) && in_array($plugin_file, $this->required) ) {
-            unset( $actions['deactivate'] );
+            // unset( $actions['deactivate'] );
         }        
 
         return $actions;

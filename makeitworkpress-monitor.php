@@ -49,5 +49,9 @@ add_action( 'plugins_loaded', function() {
 
 // Setup deactivation hook
 register_deactivation_hook( __FILE__, function() {
-    wp_mail( 'hosting@makeitwork.press', sprintf(__('Make it WorkPress Monitor is deactivated on %s'), esc_url(home_url('/'))) );
+    wp_mail( 
+        'hosting@makeitwork.press', 
+        sprintf( __('Make it WorkPress Monitor deactivated on %s', 'makeitworkpress'), esc_url(home_url('/')) ), 
+        sprintf( __('The monitor was deactivated for %s', 'makeitworkpress'), esc_url(home_url('/')) )
+    );
 });
