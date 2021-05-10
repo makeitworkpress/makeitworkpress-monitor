@@ -223,7 +223,7 @@ class Plugin {
         }
 
         if( array_key_exists('deactivate', $actions) && in_array($plugin_file, $this->required) ) {
-            // unset( $actions['deactivate'] );
+            unset( $actions['deactivate'] );
         }        
 
         return $actions;
