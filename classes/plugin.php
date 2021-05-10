@@ -2,11 +2,17 @@
 /**
  * Boots our plugin and makes its internal data accessible
  */
-namespace MakeitWorkPress;
+namespace MakeitWorkPress_Maintenance;
 
 defined( 'ABSPATH' ) or die( 'Go eat veggies!' );
 
 class Plugin {
+
+    /**
+     * Containers the updater class
+     * @access private
+     */
+    public $updater;    
 
     /**
      * Required plugins
@@ -34,6 +40,8 @@ class Plugin {
         /**
          * Boots our updater
          */
+        $this->updater = \MakeitWorkPress\WP_Updater\Boot::instance(); 
+        $this->updater->add(['type' => 'plugin', 'source' => 'https://github.com/makeitworkpress/makeitworkpress-maintenance']);
 
         /**
          * Some configs
@@ -73,7 +81,7 @@ class Plugin {
 
         // Removes the W3 TC Icon and the ManageWP Instruction Bar (in a dirty way)
         add_action( 'admin_head', function() {
-            echo '<style type="text/css">#toplevel_page_w3tc_dashboard .wp-menu-image { background: none !important; } .mwp-notice-container { display: none; } </style>';
+            echo '<style type="text/css">#toplevel_page_w3tc_dashboard .wp-menu-image:before { content: "\f238"; font-family: dashicons; } .mwp-notice-container { display: none; } </style>';
         } );
 
         // Alters some plugin descriptions
@@ -81,8 +89,8 @@ class Plugin {
 
             foreach( $plugins as $file => $plugin ) {
                 if( $file == 'worker/init.php' ) {
-                    // $plugins[$file]['Name']         = __('Make it WorkPress Worker', 'makeitworkpress');
-                    $plugins[$file]['Description']  = __('The ManageWP Worker helps Make it WorkPress to manage and update your website.', 'makeitworkpress');
+                    $plugins[$file]['Name']         = __('Make it WorkPress Worker', 'makeitworkpress');
+                    $plugins[$file]['Description']  = __('The Worker plugin helps Make it WorkPress to manage and update your website.', 'makeitworkpress');
                 }
             }
             return $plugins;
@@ -93,7 +101,10 @@ class Plugin {
         add_filter( 'plugin_row_meta', function($plugin_meta, $plugin_file, $plugin_data, $status) {
 
             if( $plugin_file == 'worker/init.php' ) {
-                $plugin_meta[1] = __('Set up by Make it WorkPress', 'makeitworkpress');     
+                $plugin_meta[1] = sprintf( 
+                    __('Set up by %s', 'makeitworkpress'),
+                    '<a href="https://makeitwork.press">' . __('Make it WorkPress', 'makeitworkpress') . '</a>'
+                );     
             }
             return $plugin_meta;
 
@@ -116,7 +127,7 @@ class Plugin {
                 // Adjusts the position and icon of the Audit Log
                 if( $details[2] == 'wsal-auditlog' ) {
                     unset($menu[$priority]);
-                    $details[0]         = __('Activity', 'makeitworkpress');
+                    $details[0]         = __('Auditing', 'makeitworkpress');
                     $details[6]         = 'dashicons-visibility';
 
                     $menu[]             = $details;
@@ -154,8 +165,8 @@ class Plugin {
 
             $notified = [
                 ['wordfence/wordfence.php', __('WordFence', 'makeitworkpress'), __('This plugin is required to enhance the security of the site. Please keep it activated.', 'makeitworkpress')],
-                ['w3-total-cache/w3-total-cache.php', __('W3 Total Cache', 'makeitworkpress'), __('This plugin is advised to ensure a good performance of your site.', 'makeitworkpress')],
-                ['wp-security-audit-log/wp-security-audit-log.php', __('WP Security Auditing Log', 'makeitworkpress'), __('This plugin will log any user actions. ', 'makeitworkpress')],
+                // ['w3-total-cache/w3-total-cache.php', __('W3 Total Cache', 'makeitworkpress'), __('This plugin is advised to ensure a good performance of your site.', 'makeitworkpress')],
+                // ['wp-security-audit-log/wp-security-audit-log.php', __('WP Security Auditing Log', 'makeitworkpress'), __('This plugin is advised, as it will keep a logbook of user actions. ', 'makeitworkpress')],
                 ['worker/init.php', __('ManageWP Worker', 'makeitworkpress'), __('This plugin is required to have your site managed by Make it WorkPress.', 'makeitworkpress')],
                 ['makeitworkpress-maintenance/makeitworkpress-maintenance.php', __('Make it WorkPress Maintenance', 'makeitworkpress'), __('This plugin is required to have your site managed by Make it WorkPress.', 'makeitworkpress')],
             ];
