@@ -46,7 +46,7 @@ class Plugin {
         /**
          * Some configs
          */
-        define('SHORTPIXEL_HIDE_API_KEY', true);
+        // define('SHORTPIXEL_HIDE_API_KEY', true); // API KEY is now defined per site
 
         /**
          * Add our necessary hooks
@@ -165,6 +165,7 @@ class Plugin {
         // The plugins that notify for Worryless WordPress
         add_action( 'admin_init', function() { 
 
+            // Plugins that get a notification if not active.
             $notified = [
                 ['wordfence/wordfence.php', __('WordFence', 'makeitworkpress'), __('This plugin is required to enhance the security of the site. Please keep it activated.', 'makeitworkpress')],
                 // ['w3-total-cache/w3-total-cache.php', __('W3 Total Cache', 'makeitworkpress'), __('This plugin is advised to ensure a good performance of your site.', 'makeitworkpress')],
