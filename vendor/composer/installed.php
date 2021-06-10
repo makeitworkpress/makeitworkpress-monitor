@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'dd58c069ad7940e8639f6c947de9e15247adafe0',
+    'reference' => 'c447595d43ec414703b23f9e6a863137d0d0fa21',
     'name' => 'makeitworkpress/makeitworkpress-maintenance',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'dd58c069ad7940e8639f6c947de9e15247adafe0',
+      'reference' => 'c447595d43ec414703b23f9e6a863137d0d0fa21',
     ),
     'makeitworkpress/wp-updater' => 
     array (
@@ -28,7 +28,7 @@
       array (
         0 => '9999999-dev',
       ),
-      'reference' => 'ba578b4953036a41134734d86407a0d993bb8727',
+      'reference' => '25071e421abd240bf411289a34f982f1bd5d796c',
     ),
   ),
 );

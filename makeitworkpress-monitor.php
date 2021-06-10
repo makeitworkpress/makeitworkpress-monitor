@@ -3,7 +3,7 @@
  * Plugin Name:  Make it WorkPress Monitor
  * Plugin URI:   https://makeitwork.press/
  * Description:  This plugin is used for maintaining WordPress websites that are hosted or managed by Make it WorkPress. Keep it activated.
- * Version:      1.0.2
+ * Version:      1.0.3
  * Author:       Make it WorkPress
  * Author URI:   https://www.makeitwork.press/
  * License:      GPL3
